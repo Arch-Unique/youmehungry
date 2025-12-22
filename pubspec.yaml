@@ -1,0 +1,76 @@
+name: youmehungry
+description: "A new Flutter project."
+publish_to: 'none'
+version: 0.1.0
+
+environment:
+  sdk: ^3.9.2
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+  intl: ^0.20.1
+  get: ^4.6.5
+  dio: ^5.1.2
+  icons_plus: ^5.0.0
+  flutter_svg: ^2.0.2
+  connectivity_plus: ^7.0.0
+  get_storage: ^2.1.1
+  cached_network_image: ^3.2.3
+  shimmer: ^3.0.0
+  url_launcher: ^6.1.11
+  share_plus: ^12.0.0
+  flutter_native_splash: ^2.2.19
+  google_sign_in: ^7.2.0
+  sign_in_with_apple: ^7.0.1
+  flutter_facebook_auth: ^7.1.1
+  firebase_core: ^3.2.0
+  firebase_messaging: ^15.0.3
+  firebase_auth: ^5.1.2
+  firebase_dynamic_links: ^6.0.3
+  flutter_inappwebview: ^6.1.5
+  photo_view: ^0.15.0
+  flutter_local_notifications: ^19.2.0
+  pin_code_fields: ^8.0.1
+  crypto: ^3.0.6
+  biometric_signature: ^7.0.2
+  image_picker: ^1.1.2
+  image_cropper: ^11.0.0
+  dropdown_search: ^6.0.2
+  widgets_to_image: ^2.0.1
+  flutter_html: ^3.0.0
+  package_info_plus: ^9.0.0
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: ^6.0.0
+
+flutter:
+  uses-material-design: true
+
+  assets:
+    - assets/images/
+
+  fonts:
+    - family: Garnett
+      fonts:
+        - asset: assets/fonts/Garnett-Bold.ttf
+          weight: 700
+        - asset: assets/fonts/Garnett-Semibold.ttf
+          weight: 600
+        - asset: assets/fonts/Garnett-Regular.ttf
+          weight: 400
+  #
+  # For details regarding fonts from package dependencies,
+  # see https://flutter.dev/custom-fonts/#from-packages
+
+flutter_native_splash:
+  color: "#000000"
+  image: assets/images/slogo.png
+  android_12:
+      image: assets/images/slogo.png
+      icon_background_color: "#000000"
+      image_dark: assets/images/slogo.png
+      icon_background_color_dark: "#000000"
