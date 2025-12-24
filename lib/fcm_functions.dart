@@ -162,7 +162,7 @@ class FCMFunctions {
     }
 
     final controller = Get.find<DashboardController>();
-    await controller.refreshFinance();
+    // await controller.refreshFinance();
   }
 }
 

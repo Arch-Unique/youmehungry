@@ -49,7 +49,7 @@ enum SuccessPagesMode {
 }
 
 enum ThirdPartyTypes {
-  facebook(Brands.facebook_f),
+  facebook(Brands.facebook_2),
   google(Brands.google),
   apple(Brands.apple_logo);
 
@@ -58,25 +58,14 @@ enum ThirdPartyTypes {
 }
 
 enum DashboardMode {
-  home("Home", Iconsax.home_2_outline),
-  wallet("Wallet", Iconsax.wallet_1_outline),
-  cityguide("Country Guide", Iconsax.map_1_outline),
-  profile("Profile", Iconsax.profile_2user_outline);
+  home("Home", Icons.home),
+  wallet("Cart", Iconsax.shopping_cart_outline),
+  cityguide("Orders", Iconsax.shopping_bag_outline),
+  profile("Account", Iconsax.profile_add_outline);
 
   final String title;
   final dynamic icon;
   const DashboardMode(this.title, this.icon);
-}
-
-enum WebDashboardMode {
-  dashboard("Dashboard", Iconsax.element_3_outline),
-  cms("CMS", Iconsax.chart_2_outline),
-  finance("Finance", Iconsax.wallet_2_outline),
-  users("Users", Iconsax.user_outline);
-
-  final String title;
-  final dynamic icon;
-  const WebDashboardMode(this.title, this.icon);
 }
 
 // enum HomeCategory {
@@ -159,13 +148,3 @@ enum ErrorTypes {
   const ErrorTypes(this.icon, this.title, this.desc);
 }
 
-enum PatientCategory {
-  all("All"),
-  prenatal("Prenatal"),
-  antenatal("Antenatal"),
-  postpartum("PostPartum"),
-  delivery("Delivery");
-
-  final String name;
-  const PatientCategory(this.name);
-}

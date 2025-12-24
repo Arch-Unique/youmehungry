@@ -1,5 +1,6 @@
 import 'dart:typed_data';
 
+import 'package:youmehungry/src/features/shared.dart';
 import 'package:youmehungry/src/global/services/barrel.dart';
 import 'package:youmehungry/src/global/ui/widgets/others/containers.dart';
 import 'package:flutter/material.dart';
@@ -322,7 +323,7 @@ class _FavouriteBtnState extends State<FavouriteBtn> {
 
   @override
   void initState() {
-    isFav = controller.isInFavs(widget.id);
+    // isFav = controller.isInFavs(widget.id);
     super.initState();
   }
 
@@ -339,9 +340,9 @@ class _FavouriteBtnState extends State<FavouriteBtn> {
           isFav = !isFav;
         });
         if (isFav) {
-          await controller.addToFavs(widget.id);
+          // await controller.addToFavs(widget.id);
         } else {
-          await controller.removeFromFavs(widget.id);
+          // await controller.removeFromFavs(widget.id);
         }
       },
       color: isFav ? AppColors.accentColor : AppColors.containerColor,
@@ -639,10 +640,7 @@ class LoadingIndicator extends StatelessWidget {
         child: SizedBox(
           height: size,
           width: size,
-          child: const CircularProgressIndicator(
-            color: AppColors.primaryColor,
-            backgroundColor: Colors.white,
-          ),
+          child: LoadingWidget(size: size,)
         ),
       ),
     );
@@ -761,7 +759,8 @@ class _ChooseCamState extends State<ChooseCam> {
 
     // final filepath = file!.path;
     // Get.back(result: filepath);
-    Get.back(result: finalImage?.path);
+    final mems = await finalImage?.readAsBytes();
+    Get.back(result: mems);
   }
 
   Widget buildVIT(int i) {
@@ -770,7 +769,7 @@ class _ChooseCamState extends State<ChooseCam> {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          Icon(icons[i], size: 48, color: AppColors.white),
+          Icon(icons[i], size: 48, color: AppColors.searchIconColor),
           const SizedBox(height: 8),
           AppText.thin(iconText[i]),
         ],
@@ -835,8 +834,9 @@ class _TimerTextState extends State<TimerText> {
     // int minutes = _durationInSeconds ~/ 60;
     int seconds = _durationInSeconds % 60;
     return AppText.medium(
-      "${seconds.toString().padLeft(2, '0')} secs",
-      color: AppColors.accentColor,
+      "${seconds.toString().padLeft(2, '0')} s",
+      color: AppColors.primaryColor,
+      fontSize: 18
     );
   }
 
@@ -1160,54 +1160,6 @@ class _BouncingScalingLogoState extends State<BouncingScalingLogo>
               height: widget.height,
             ),
           ),
-        );
-      },
-    );
-  }
-}
-
-// Usage Examples:
-
-// Alternative: Simple Transform-based bouncing (inline solution)
-class SimpleBouncing extends StatefulWidget {
-  @override
-  State<SimpleBouncing> createState() => _SimpleBouncingState();
-}
-
-class _SimpleBouncingState extends State<SimpleBouncing>
-    with SingleTickerProviderStateMixin {
-  late AnimationController _controller;
-  late Animation<double> _animation;
-
-  @override
-  void initState() {
-    super.initState();
-    _controller = AnimationController(
-      duration: Duration(milliseconds: 1500),
-      vsync: this,
-    );
-    _animation = Tween<double>(
-      begin: 0,
-      end: 10,
-    ).animate(CurvedAnimation(parent: _controller, curve: Curves.elasticInOut));
-    _controller.repeat(reverse: true);
-  }
-
-  @override
-  void dispose() {
-    _controller.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return AnimatedBuilder(
-      animation: _animation,
-      child: UniversalImage(Assets.rlogo, width: 40),
-      builder: (context, child) {
-        return Transform.translate(
-          offset: Offset(0, -_animation.value),
-          child: child,
         );
       },
     );

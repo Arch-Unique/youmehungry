@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class MyPrefService extends GetxService implements PrefService {
-  static final _prefs = GetStorage("detty");
+  static final _prefs = GetStorage("YouMeHungry");
 
   @override
   T? get<T>(String key) {

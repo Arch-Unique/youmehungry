@@ -30,7 +30,7 @@ class CustomTextField extends StatelessWidget {
     this.hasBottomPadding = true,
     this.fw = FontWeight.w300,
     this.col = AppColors.textColor,
-    this.iconColor = AppColors.primaryColor,
+    this.iconColor = AppColors.lightTextColor,
     this.fillcolor = AppColors.transparent,
     this.tia = TextInputAction.next,
     this.oldPass,
@@ -131,11 +131,12 @@ class CustomTextField extends StatelessWidget {
                     fontSize: 12,
                     color: AppColors.red,
                   ),
+                  
                   errorBorder: customBorder(color: borderCol),
                   suffixIconConstraints: suffix != null
                       ? BoxConstraints(minWidth: 24, minHeight: 24)
                       : null,
-                  isDense: suffix != null,
+                  // isDense: suffix != null,
                   contentPadding: EdgeInsets.symmetric(
                     vertical: 12.0,
                     horizontal: 16,
@@ -211,7 +212,7 @@ class CustomTextField extends StatelessWidget {
 
     return OutlineInputBorder(
       borderSide: BorderSide(color: color),
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(4),
       gapPadding: 8,
     );
     // return InputBorder.none;
@@ -573,7 +574,7 @@ class _PhoneTextFieldState extends State<PhoneTextField> {
   InputBorder customBorder({Color color = AppColors.textColor}) {
     return OutlineInputBorder(
       borderSide: BorderSide(color: color),
-      borderRadius: BorderRadius.circular(24),
+      borderRadius: BorderRadius.circular(4),
       gapPadding: 8,
     );
   }

@@ -5,7 +5,7 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_native_splash/flutter_native_splash.dart';
+// import 'package:flutter_native_splash/flutter_native_splash.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'firebase_options.dart';
@@ -28,8 +28,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 
 void main() async {
   final wd = WidgetsFlutterBinding.ensureInitialized();
-  FlutterNativeSplash.preserve(widgetsBinding: wd);
-  await GetStorage.init("detty");
+  // FlutterNativeSplash.preserve(widgetsBinding: wd);
+  await GetStorage.init("YouMeHungry");
 
   if (GetPlatform.isMobile) {
     FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
@@ -82,11 +82,12 @@ class App extends StatelessWidget {
         throw FlutterError('...widget is null...');
       },
       initialRoute: AppRoutes.home,
-      title: 'Detty',
+      title: 'YouMeHungry',
       getPages: AppPages.getPages,
       theme: ThemeData(
           scaffoldBackgroundColor: AppColors.primaryColorBackground,
           fontFamily: Assets.appFontFamily,
+          
           primarySwatch: AppColors.primaryColor),
     );
   }

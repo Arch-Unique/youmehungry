@@ -7,7 +7,8 @@ class AppButton extends StatefulWidget {
   final Widget? child;
   final String? text, icon;
   final bool? disabled;
-  final Color color, borderColor;
+  final double v;
+  final Color color, borderColor, textColor;
   final bool isCircle, isWide, hasBorder;
 
   const AppButton({
@@ -20,7 +21,9 @@ class AppButton extends StatefulWidget {
     this.isCircle = false,
     this.borderColor = AppColors.white,
     this.hasBorder = false,
+    this.v = 16,
     this.color = AppColors.primaryColor,
+    this.textColor = AppColors.white,
     super.key,
   });
 
@@ -65,13 +68,14 @@ class AppButton extends StatefulWidget {
   }
 
   static outline(Function? onPressed, String title,
-      {Color color = AppColors.white,Widget? child}) {
+      {Color color = AppColors.white,double v=16,Widget? child}) {
     return AppButton(
       onPressed: onPressed,
       hasBorder: true,
       text: title,
       color: AppColors.transparent,
       borderColor: color,
+      v: v,
       child: child,
     );
   }
@@ -101,7 +105,7 @@ class _AppButtonState extends State<AppButton> {
       shape: widget.isCircle
           ? const CircleBorder()
           : RoundedRectangleBorder(
-              borderRadius: Ui.circularRadius(48),
+              borderRadius: Ui.circularRadius(4),
               side: widget.hasBorder
                   ? BorderSide(color: widget.borderColor)
                   : BorderSide.none,
@@ -130,8 +134,8 @@ class _AppButtonState extends State<AppButton> {
                       : Image.asset(widget.icon!)),
             )
           : Container(
-              padding: const EdgeInsets.symmetric(
-                vertical: 16,
+              padding: EdgeInsets.symmetric(
+                vertical: widget.v,
               ),
               width: widget.isWide
                   ? double.maxFinite
@@ -146,7 +150,7 @@ class _AppButtonState extends State<AppButton> {
                               ? widget.borderColor
                               : widget.color == AppColors.white
                                   ? AppColors.primaryColor
-                                  : AppColors.white,
+                                  : widget.textColor,
                         )
                     : const LoadingIndicator(),
               )),

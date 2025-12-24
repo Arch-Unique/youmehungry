@@ -13,78 +13,31 @@ class OnboardingScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final pics = [Assets.onb, Assets.onb1, Assets.onb3];
-    final controller = PageController();
-    RxInt curPic = 0.obs;
-    Timer.periodic(const Duration(seconds: 3), (t) {
-      if (curPic.value == pics.length - 1) {
-        // curPic.value = 0;
-        controller.jumpToPage(0);
-      } else {
-        controller.animateToPage(
-          ++curPic.value,
-          duration: Duration(seconds: 1),
-          curve: Curves.easeIn,
-        );
-        // curPic.value++;
-      }
+    RxBool isLoading = true.obs;
+    Timer.periodic(const Duration(seconds: 2), (t) {
+      isLoading.value = false;
     });
     return Scaffold(
-      body: Stack(
+      backgroundColor: AppColors.primaryColor,
+      body: Column(
         children: [
-          PageView.builder(
-            itemBuilder: (c, i) {
-              return FadeAnimWidget(
-                child: UniversalImage(
-                  pics[i],
-                  height: Ui.height(context),
-                  width: Ui.width(context),
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
-            reverse: false,
-            itemCount: pics.length,
-            onPageChanged: (v) {
-              curPic.value = v;
-            },
-            controller: controller,
-            padEnds: false,
-          ),
-          // Obx(
-          //    () {
-          //     return UniversalImage(
-          //       pics[curPic.value],
-          //       height: Ui.height(context),
-          //       width: Ui.width(context),
-          //       fit: BoxFit.cover,
-          //     );
-          //   }
-          // ),
-          Container(
-            height: Ui.height(context),
-            width: Ui.width(context),
-            decoration: BoxDecoration(
-              gradient: LinearGradient(
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-                colors: [AppColors.red.withOpacity(0), AppColors.black],
-              ),
-            ),
-          ),
-          Positioned(
-            width: Ui.width(context),
-            bottom: 0,
-            child: Ui.padding(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  UniversalImage(Assets.logo, width: Ui.width(context) - 64),
-                  OnboardingActions(),
-                ],
-              ),
-            ),
-          ),
+          const Spacer(),
+          Image.asset(Assets.slogo, width: Ui.width(context)),
+          Image.asset(Assets.fulllogo, width: Ui.width(context) - 64),
+          Obx(() {
+            return isLoading.value
+                ? SizedBox()
+                : Padding(
+                    padding: const EdgeInsets.only(
+                      top: 48,
+                      left: 16,
+                      right: 16,
+                    ),
+                    child: const OnboardingActions(),
+                  );
+          }),
+
+          const Spacer(),
         ],
       ),
     );
@@ -106,25 +59,19 @@ class OnboardingActions extends StatelessWidget {
             onPressed: () {
               Get.off(AuthScreen());
             },
-            text: "Create Account",
+            text: "Get Started",
+            color: AppColors.black,
           ),
           Ui.boxHeight(12),
-          AppButton.outline(() {
-            Get.off(AuthScreen(isLogin: true));
-          }, "Login"),
-          Ui.boxHeight(12),
-          SafeArea(
-            child: GestureDetector(
-              onTap: () async {
-                Get.find<DashboardController>().initApp();
-                Get.offAll(ExplorerScreen());
-              },
-              child: Ui.padding(
-                padding: 8,
-                child: AppText.medium("Continue as Guest", fontSize: 14),
-              ),
-            ),
+          AppButton(
+            onPressed: () {
+              Get.off(LoginScreen());
+            },
+            text: "Sign In",
+            color: AppColors.accentColor,
+            textColor: AppColors.black,
           ),
+          Ui.boxHeight(12),
         ],
       ),
     );

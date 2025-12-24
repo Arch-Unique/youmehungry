@@ -56,7 +56,7 @@ class AppService extends GetxService {
     if (a == false) {
       await prefService.save(MyPrefs.hasOpenedOnboarding, true);
     }
-    hasOpenedOnboarding.value = a;
+    hasOpenedOnboarding.value = false;
   }
 
   Future<void> _saveUser() async {

@@ -1,4 +1,3 @@
-import 'package:youmehungry/src/features/auth/add_destination_page.dart';
 import 'package:youmehungry/src/features/auth/auth_page.dart';
 import 'package:youmehungry/src/features/dashboard/explorer_page.dart';
 import 'package:youmehungry/src/features/onboarding/onboarding_page.dart';
@@ -15,6 +14,6 @@ class AppPages {
       middlewares: [AuthMiddleWare()],
     ),
     GetPage(name: AppRoutes.auth, page: () => AuthScreen()),
-    GetPage(name: AppRoutes.dashboard, page: () => AddDestinationScreen()),
+    GetPage(name: AppRoutes.dashboard, page: () => ExplorerScreen()),
   ];
 }

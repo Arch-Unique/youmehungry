@@ -1,9 +1,7 @@
 import 'package:youmehungry/src/features/dashboard/controllers/dashboard_controller.dart';
-import 'package:youmehungry/src/features/dashboard/views/city_guide/city_guide_page.dart';
-import 'package:youmehungry/src/features/dashboard/views/home/home_page.dart';
-import 'package:youmehungry/src/features/dashboard/views/home/views/aichat.dart';
-import 'package:youmehungry/src/features/dashboard/views/profile/profile_page.dart';
-import 'package:youmehungry/src/features/dashboard/views/wallet/wallet_page.dart';
+import 'package:youmehungry/src/features/dashboard/views/cart/cartpage.dart';
+import 'package:youmehungry/src/features/dashboard/views/home/homepage.dart';
+import 'package:youmehungry/src/features/dashboard/views/orders/orderpage.dart';
 import 'package:youmehungry/src/features/shared.dart';
 import 'package:youmehungry/src/global/ui/ui_barrel.dart';
 import 'package:youmehungry/src/src_barrel.dart';
@@ -21,22 +19,22 @@ class _ExplorerScreenState extends State<ExplorerScreen> {
   final screens = [
     Builder(
       builder: (context) {
-        return HomeScreen();
+        return HomePage();
       },
     ),
     Builder(
       builder: (context) {
-        return WalletScreen();
+        return CartPage();
       },
     ),
     Builder(
       builder: (context) {
-        return CityGuideScreen();
+        return OrderPage();
       },
     ),
     Builder(
       builder: (context) {
-        return ProfileScreen();
+        return Placeholder();
       },
     ),
   ];
@@ -58,30 +56,7 @@ class _ExplorerScreenState extends State<ExplorerScreen> {
         body: Obx(() {
           return screens[controller.curScreen.value];
         }),
-        floatingActionButton: InkWell(
-          onTap: () {
-            Get.to(AIChatScreen());
-          },
-          child: Container(
-            width: 48,
-            height: 48,
-            decoration: BoxDecoration(
-              color: AppColors.black,
-              borderRadius: BorderRadius.circular(48),
-              boxShadow: [
-                BoxShadow(
-                  offset: Offset(4, 0),
-                  blurRadius: 50,
-                  spreadRadius: 3,
-                  color: Color(0xFFF2F2F2).withOpacity(0.1),
-                ),
-              ],
-            ),
-            child: Center(child: UniversalImage(Assets.rlogo, width: 24)),
-          ),
-        ),
-        floatingActionButtonLocation:
-            FloatingActionButtonLocation.miniCenterDocked,
+        
         bottomNavigationBar: SafeArea(
           child: Column(
             mainAxisSize: MainAxisSize.min,
@@ -95,13 +70,7 @@ class _ExplorerScreenState extends State<ExplorerScreen> {
                   children: List.generate(screens.length, (i) {
                     return InkWell(
                       onTap: () {
-                        if (i == 1 &&
-                            controller.dbRepo.appService.currentUser.value.id ==
-                                0) {
-                          Ui.showError("Please login to access wallet");
-                          controller.curScreen.value = 3;
-                          return;
-                        }
+                       
                         controller.curScreen.value = i;
                       },
                       child: SizedBox(
@@ -113,19 +82,20 @@ class _ExplorerScreenState extends State<ExplorerScreen> {
                               return AppIcon(
                                 DashboardMode.values[i].icon,
                                 color: controller.curScreen.value == i
-                                    ? AppColors.primaryColor
-                                    : AppColors.disabledColor,
+                                    ? AppColors.accentColor
+                                    : Color(0xFF4B4B4B),
                               );
                             }),
                             Ui.boxHeight(4),
                             Obx(() {
-                              return AppText.thin(
+                              return AppText(
                                 DashboardMode.values[i].title,
                                 fontSize: 12,
                                 alignment: TextAlign.center,
+                                weight: controller.curScreen.value == i ? FontWeight.w600 : FontWeight.w400,
                                 color: controller.curScreen.value == i
                                     ? AppColors.primaryColor
-                                    : AppColors.disabledColor,
+                                    : Color(0xFF4B4B4B),
                               );
                             }),
                           ],

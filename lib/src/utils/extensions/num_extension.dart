@@ -8,7 +8,7 @@ extension NumExtension on num {
 
   String toCurrency() {
     NumberFormat myFormat = NumberFormat.decimalPattern('en_us');
-    return "N${myFormat.format(this)}";
+    return "\$${myFormat.format(this)}";
     // ₦
   }
 

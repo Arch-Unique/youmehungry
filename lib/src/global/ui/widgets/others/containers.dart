@@ -18,7 +18,7 @@ class CurvedContainer extends StatefulWidget {
   final EdgeInsets? margin, padding;
   const CurvedContainer({
     this.child,
-    this.radius = 8,
+    this.radius = 4,
     this.height,
     this.width,
     this.onPressed,
@@ -124,17 +124,19 @@ class SinglePageScaffold extends StatelessWidget {
   final String? title;
   final Widget? child;
   final bool safeArea;
+  final bool centerTitle;
   const SinglePageScaffold({
     this.title,
     this.child,
     this.safeArea = false,
+    this.centerTitle = false,
     super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: backAppBar(title: title),
+      appBar: backAppBar(title: title,ct: centerTitle),
       body: safeArea ? SafeArea(child: child!) : child,
     );
   }

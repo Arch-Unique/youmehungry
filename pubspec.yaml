@@ -54,23 +54,23 @@ flutter:
     - assets/images/
 
   fonts:
-    - family: Garnett
+    - family: Seravek
       fonts:
-        - asset: assets/fonts/Garnett-Bold.ttf
+        - asset: assets/fonts/Seravek-Bold.otf
           weight: 700
-        - asset: assets/fonts/Garnett-Semibold.ttf
+        - asset: assets/fonts/Seravek-Medium.otf
           weight: 600
-        - asset: assets/fonts/Garnett-Regular.ttf
+        - asset: assets/fonts/Seravek.otf
           weight: 400
   #
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages
 
 flutter_native_splash:
-  color: "#000000"
+  color: "#194128"
   image: assets/images/slogo.png
   android_12:
       image: assets/images/slogo.png
-      icon_background_color: "#000000"
+      icon_background_color: "#194128"
       image_dark: assets/images/slogo.png
-      icon_background_color_dark: "#000000"
+      icon_background_color_dark: "#194128"

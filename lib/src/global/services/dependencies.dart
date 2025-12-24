@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 
 import '../../features/auth/repository/auth_repo.dart';
 import '../../features/dashboard/controllers/dashboard_controller.dart';
-import '../../features/dashboard/models/dashboard_repo.dart';
+import '../../features/dashboard/repo/dashboard_repo.dart';
 
 class AppDependency {
   static init() async {

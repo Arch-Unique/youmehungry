@@ -1,4 +1,4 @@
-import 'package:youmehungry/src/features/dashboard/models/dashboard_repo.dart';
+import 'package:youmehungry/src/features/dashboard/repo/dashboard_repo.dart';
 import 'package:youmehungry/src/src_barrel.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';

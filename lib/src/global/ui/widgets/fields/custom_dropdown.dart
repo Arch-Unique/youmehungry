@@ -23,7 +23,7 @@ class CustomDropdown<T> extends StatelessWidget {
     required this.onChanged,
     this.value,
     this.label = "",
-    this.iconColor = AppColors.white,
+    this.iconColor = AppColors.primaryColor,
     this.fontSize = 14,
     this.fontWeight = FontWeight.w300,
     this.hasBottomPadding = true,
@@ -64,7 +64,7 @@ class CustomDropdown<T> extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: AppColors.containerColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
       ),
       builder: (context) => _SearchBottomSheet<T>(
         items: items,
@@ -104,7 +104,7 @@ class CustomDropdown<T> extends StatelessWidget {
           if (label.isNotEmpty) Ui.boxHeight(4),
           Container(
             decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(48),
+              borderRadius: BorderRadius.circular(4),
               border: Border.all(color: borderColor),
             ),
             child: useBottomSheet
@@ -112,7 +112,7 @@ class CustomDropdown<T> extends StatelessWidget {
                     onTap: isEnabled
                         ? () => _showSearchBottomSheet(context)
                         : null,
-                    borderRadius: BorderRadius.circular(48),
+                    borderRadius: BorderRadius.circular(4),
                     child: Container(
                       padding: EdgeInsets.symmetric(
                         vertical: 12.0,
@@ -139,7 +139,7 @@ class CustomDropdown<T> extends StatelessWidget {
                           Padding(
                             padding: const EdgeInsets.only(right: 8.0),
                             child: AppIcon(
-                              Icons.keyboard_arrow_down_rounded,
+                              Icons.arrow_drop_down,
                               color: iconColor,
                             ),
                           ),
@@ -153,7 +153,7 @@ class CustomDropdown<T> extends StatelessWidget {
                     icon: Padding(
                       padding: const EdgeInsets.only(right: 8.0),
                       child: AppIcon(
-                        Icons.keyboard_arrow_down_rounded,
+                        Icons.arrow_drop_down,
                         color: iconColor,
                       ),
                     ),
@@ -495,15 +495,15 @@ class _SearchBottomSheetState<T> extends State<_SearchBottomSheet<T>> {
                 filled: true,
                 fillColor: AppColors.transparent,
                 border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(48),
+                  borderRadius: BorderRadius.circular(4),
                   borderSide: BorderSide(color: AppColors.borderColor),
                 ),
                 enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(48),
+                  borderRadius: BorderRadius.circular(4),
                   borderSide: BorderSide(color: AppColors.borderColor),
                 ),
                 focusedBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(48),
+                  borderRadius: BorderRadius.circular(4),
                   borderSide: BorderSide(color: AppColors.borderColor),
                 ),
                 contentPadding: EdgeInsets.symmetric(
@@ -608,7 +608,7 @@ class RawDropdown<T> extends StatelessWidget {
       isScrollControlled: true,
       backgroundColor: AppColors.containerColor,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(4)),
       ),
       builder: (context) => _SearchBottomSheet<T>(
         items: items,
@@ -638,7 +638,7 @@ class RawDropdown<T> extends StatelessWidget {
     return useBottomSheet
         ? InkWell(
             onTap: () => _showSearchBottomSheet(context),
-            borderRadius: BorderRadius.circular(48),
+            borderRadius: BorderRadius.circular(4),
             child: Container(
               padding: EdgeInsets.symmetric(vertical: 12.0, horizontal: 0),
               child: Row(
@@ -651,7 +651,7 @@ class RawDropdown<T> extends StatelessWidget {
                   Padding(
                     padding: const EdgeInsets.only(right: 8.0),
                     child: AppIcon(
-                      Icons.keyboard_arrow_down_rounded,
+                      Icons.arrow_drop_down,
                       color: AppColors.white,
                     ),
                   ),
@@ -662,7 +662,7 @@ class RawDropdown<T> extends StatelessWidget {
         : DropdownButton<T>(
             dropdownColor: AppColors.containerColor,
             isExpanded: true,
-            icon: AppIcon(Icons.keyboard_arrow_down_rounded),
+            icon: AppIcon(Icons.arrow_drop_down),
             items: items,
             value: value,
             onChanged: (v) {

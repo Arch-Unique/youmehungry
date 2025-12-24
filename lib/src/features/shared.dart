@@ -53,142 +53,6 @@ class BottomActionButton extends StatelessWidget {
   }
 }
 
-class CategoryItemHeader extends StatelessWidget {
-  const CategoryItemHeader(
-    this.cit, {
-    this.fs1 = 16,
-    this.fs2 = 12,
-    this.fs3 = 12,
-    this.ml = 2,
-    super.key,
-  });
-  final CategoryItem cit;
-  final double fs1, fs2, fs3;
-  final int? ml;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        AppText.medium(
-          cit.name,
-          maxLines: 1,
-          fontSize: fs1,
-          alignment: TextAlign.start,
-          overflow: TextOverflow.ellipsis,
-        ),
-        if (cit.startDate != null) Ui.boxHeight(8),
-        if (cit.startDate != null)
-          Row(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              AppIcon(
-                Iconsax.clock_outline,
-                color: AppColors.lightTextColor,
-                size: fs2,
-              ),
-              Ui.boxWidth(4),
-              Expanded(
-                child: AppText.medium(
-                  cit.dateTimeRaw,
-                  fontSize: fs2,
-                  color: AppColors.accentColor,
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  alignment: TextAlign.start,
-                ),
-              ),
-            ],
-          ),
-        if (cit.address?.isNotEmpty ?? false) Ui.boxHeight(8),
-        if (cit.address?.isNotEmpty ?? false)
-          Row(
-            // mainAxisSize: MainAxisSize.min,
-            children: [
-              AppIcon(
-                Iconsax.location_outline,
-                color: AppColors.lightTextColor,
-                size: fs3,
-              ),
-              Ui.boxWidth(4),
-              Expanded(
-                child: AppText.thin(
-                  cit.address!,
-                  fontSize: fs3,
-                  alignment: TextAlign.start,
-                  maxLines: cit.startDate == null ? ml : 1,
-                  overflow: TextOverflow.ellipsis,
-                  color: AppColors.lightTextColor,
-                ),
-              ),
-            ],
-          ),
-        if (cit.categoryId == 8)
-          AppText.thin(
-            cit.description,
-            maxLines: 3,
-            overflow: TextOverflow.ellipsis,
-            color: AppColors.lightTextColor,
-          ),
-      ],
-    );
-  }
-}
-
-class DettyCard extends StatelessWidget {
-  const DettyCard(
-    this.title,
-    this.desc, {
-    this.url = Assets.bg2,
-    this.onTap,
-    this.height = 160,
-    this.btnText = "",
-    super.key,
-  });
-  final String title, desc, url, btnText;
-  final double height;
-  final Function()? onTap;
-
-  @override
-  Widget build(BuildContext context) {
-    return Ui.padding(
-      child: Stack(
-        alignment: AlignmentDirectional.center,
-        children: [
-          CurvedImage(
-            url,
-            w: Ui.width(context) - 32,
-            h: height,
-            fit: BoxFit.cover,
-          ),
-          Ui.padding(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                SizedBox(width: Ui.width(context) - 32, height: 24),
-                AppText.medium(title),
-                Ui.boxHeight(12),
-                AppText.thin(desc, fontSize: 14, alignment: TextAlign.center),
-                if (onTap != null)
-                  Ui.padding(
-                    child: AppButton(
-                      onPressed: onTap,
-                      text: btnText,
-                      color: AppColors.black,
-                    ),
-                  ),
-                Ui.boxHeight(24),
-              ],
-            ),
-          ),
-        ],
-      ),
-    );
-  }
-}
-
 class SettingsItemWidget extends StatelessWidget {
   SettingsItemWidget(
     this.title,
@@ -346,77 +210,6 @@ class CustomKeyPad extends StatelessWidget {
   }
 }
 
-class PaginatorFooter extends StatelessWidget {
-  PaginatorFooter({super.key});
-  static const icons = [
-    Icons.fast_rewind_rounded,
-    Icons.chevron_left_rounded,
-    Icons.chevron_right_rounded,
-    Icons.fast_forward_rounded,
-  ];
-  final controller = Get.find<DashboardController>();
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      children: [
-        Spacer(),
-        AppText.thin("Rows per page"),
-        Ui.boxWidth(16),
-        SizedBox(
-          width: 100,
-          child: CustomDropdown.rows(
-            hint: "10",
-            selectedValue: 10,
-            onChanged: (v) {},
-          ),
-        ),
-        Ui.boxWidth(36),
-        Obx(() {
-          return AppText.thin(
-            "Page ${controller.curPaginatorPage.value} of ${controller.curPaginatorTotalPages.value} ",
-          );
-        }),
-        Ui.boxWidth(36),
-        ...List.generate(4, (i) => paginatorButton(i)),
-      ],
-    );
-  }
-
-  paginatorButton(int i) {
-    return Obx(() {
-      bool isActive = true;
-      if (i < 2) {
-        isActive = controller.curPaginatorPage.value > 1;
-      } else {
-        isActive =
-            controller.curPaginatorPage.value <
-            controller.curPaginatorTotalPages.value;
-      }
-      final color = isActive ? AppColors.white : AppColors.borderColor;
-      return CurvedContainer(
-        border: Border.all(color: color),
-        padding: EdgeInsets.all(4),
-        margin: EdgeInsets.symmetric(horizontal: 8),
-        onPressed: isActive
-            ? () {
-                if (i == 0) {
-                  controller.gotoFirstPage();
-                } else if (i == 1) {
-                  controller.gotoPreviousPage();
-                } else if (i == 2) {
-                  controller.gotoNextPage();
-                } else if (i == 3) {
-                  controller.gotoLastPage();
-                }
-              }
-            : null,
-        child: AppIcon(icons[i], color: color, size: 24),
-      );
-    });
-  }
-}
-
 loadAsyncFunction(Function onLoad) async {
   await Get.showOverlay(
     asyncFunction: () async {
@@ -492,470 +285,137 @@ class ConnectivityWidget extends StatelessWidget {
   }
 }
 
-class AddressFieldWidget extends StatefulWidget {
-  const AddressFieldWidget(this.afc, {super.key});
-  final AddressFieldController afc;
+class LoadingWidget extends StatefulWidget {
+  const LoadingWidget({this.size = 54, super.key});
+  final double size;
 
   @override
-  State<AddressFieldWidget> createState() => _AddressFieldWidgetState();
+  State<LoadingWidget> createState() => _LoadingWidgetState();
 }
 
-class _AddressFieldWidgetState extends State<AddressFieldWidget> {
-  List<String> currentStates = [];
-  List<Map<String, String>> curCountries = [];
-  List<TextEditingController> tecs = List.generate(
-    3,
-    (i) => TextEditingController(),
-  );
+class _LoadingWidgetState extends State<LoadingWidget>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
 
   @override
   void initState() {
-    curCountries = widget.afc.hasZipCode
-        ? countriesData
-        : Get.find<DashboardController>().allAvailableCountries;
-    currentStates =
-        cmaps[curCountries
-                .where((test) => test["name"] == widget.afc.country)
-                .first["code"] ??
-            "NG"]!;
-    widget.afc.state = currentStates[0];
-    tecs[0].text = widget.afc.street;
-    tecs[1].text = widget.afc.city;
-    tecs[2].text = widget.afc.zipCode ?? "";
     super.initState();
+    _controller = AnimationController(
+      duration: const Duration(seconds: 2),
+
+      vsync: this,
+    )..repeat();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return CurvedContainer(
-      radius: 0,
-      color: AppColors.containerColor,
-      padding: EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            AppText.medium("Add Address", fontSize: 20),
-            Ui.boxHeight(24),
-            CustomDropdown.country(
-              hint: "",
-              selectedValue:
-                  curCountries
-                      .where((test) => test["name"] == widget.afc.country)
-                      .first["code"] ??
-                  "NG",
-              ct: curCountries,
-              onChanged: (v) {
-                widget.afc.country = curCountries
-                    .where((test) => test["code"] == v)
-                    .first["name"]!;
+    return RotationTransition(
+      turns: _controller,
+      child: Image.asset(
+        Assets.loading,
+        width: widget.size,
+        height: widget.size,
+      ),
+    );
+  }
+}
 
-                currentStates =
-                    cmaps[curCountries
-                            .where((test) => test["name"] == widget.afc.country)
-                            .first["code"] ??
-                        "NG"]!;
-                widget.afc.state = currentStates.elementAtOrNull(0) ?? "";
-                setState(() {});
-              },
-            ),
-            // selectedValue: widget.afc.country.isEmpty ? "NG" : widget.afc.country,
-            // onChanged: (v) {
-            //   widget.afc.country = v ?? "NG";
-            //   currentStates = cmaps[widget.afc.country]!;
-            //   setState(() {});
-            // }),
-            CustomDropdown.city(
-              hint: "Select State",
-              selectedValue: widget.afc.state.isEmpty
-                  ? currentStates[0]
-                  : widget.afc.state,
-              label: "State",
-              cities: currentStates,
-              onChanged: (v) {
-                widget.afc.state = v ?? "";
-                setState(() {});
-              },
-            ),
-            CustomTextField(
-              "123 Test Street",
-              tecs[0],
-              label: "Street",
-              customOnChanged: () {
-                widget.afc.street = tecs[0].text;
-              },
-            ),
-            CustomTextField(
-              "City",
-              tecs[1],
-              label: "City",
-              varl: FPL.text,
-              customOnChanged: () {
-                widget.afc.city = tecs[1].text;
-              },
-            ),
-            if (widget.afc.hasZipCode)
-              CustomTextField(
-                "ZipCode",
-                tecs[2],
-                label: "ZipCode",
-                varl: FPL.number,
-                customOnChanged: () {
-                  widget.afc.zipCode = tecs[2].text;
-                },
+class EmptyScreen extends StatelessWidget {
+  const EmptyScreen(this.title, this.desc, this.icon, {super.key});
+  final String title, desc, icon;
+
+  @override
+  Widget build(BuildContext context) {
+    return Center(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(),
+          UniversalImage(icon, width: 240, fit: BoxFit.cover),
+          Ui.boxHeight(20),
+          AppText.bold(title, fontSize: 18),
+          Ui.boxHeight(4),
+          AppText.thin(desc, fontSize: 16),
+        ],
+      ),
+    );
+  }
+}
+
+class TabSliderWidget extends StatelessWidget {
+  TabSliderWidget(this.titles, this.children, {super.key});
+  final List<String> titles;
+  final List<Widget> children;
+  final selectedIndex = 0.obs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        CurvedContainer(
+          padding: const EdgeInsets.all(16),
+          color: AppColors.white,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Row(
+                children: List.generate(titles.length, (i) {
+                  return Expanded(child: _buildTab(titles[i], i));
+                }),
               ),
-            SafeArea(
-              child: AppButton(
-                onPressed: () {
-                  final b = widget.afc.onSubmit();
-                  if (b) {
-                    Get.back();
-                  }
-                },
-                text: "Save",
-              ),
+              CDivider(),
+              
+            ],
+          ),
+        ),
+        Expanded(
+            child: Container(
+              color: Color(0xFFf5f5f5),
+              child: Obx(() {
+                return children[selectedIndex.value];
+              }),
             ),
-            Ui.boxHeight(24),
+          ),
+      ],
+    );
+  }
+
+  Widget _buildTab(String text, int index) {
+    return Obx(() {
+      final isSelected = selectedIndex.value == index;
+      return GestureDetector(
+        onTap: () {
+          selectedIndex.value = index;
+        },
+        child: Column(
+          children: [
+            AppText(
+              text,
+              fontSize: 16,
+              weight: isSelected ? FontWeight.w600 : FontWeight.w400,
+              color: isSelected
+                  ? AppColors.primaryColor
+                  : AppColors.lightTextColor3,
+            ),
+            
+              Container(
+                margin: const EdgeInsets.only(top: 8),
+                height: 3,
+                width: 84,
+                decoration: BoxDecoration(
+                  color: isSelected ? AppColors.primaryColor : AppColors.transparent,
+                  borderRadius: BorderRadius.only(topLeft: Radius.circular(4),topRight: Radius.circular(4)),
+                ),
+              ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class CountryCityWidget extends StatefulWidget {
-  const CountryCityWidget(this.tec, {super.key});
-  final TextEditingController tec;
-
-  @override
-  State<CountryCityWidget> createState() => _CountryCityWidgetState();
-}
-
-class _CountryCityWidgetState extends State<CountryCityWidget> {
-  List<String> currentStates = [];
-  List<TextEditingController> tecs = List.generate(
-    3,
-    (i) => TextEditingController(),
-  );
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    tecs[0].text = "Nigeria";
-    currentStates =
-        cmaps[countriesData
-                .where((test) => test["name"] == "Nigeria")
-                .first["code"] ??
-            "NG"]!;
-    tecs[1].text = currentStates[0];
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CurvedContainer(
-      radius: 0,
-      color: AppColors.containerColor,
-      padding: EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppText.medium("Add Address", fontSize: 20),
-              Ui.boxHeight(24),
-              CustomDropdown.country(
-                hint: "",
-                selectedValue:
-                    countriesData
-                        .where((test) => test["name"] == tecs[0].text)
-                        .first["code"] ??
-                    "NG",
-                ct: countriesData,
-                onChanged: (v) {
-                  tecs[0].text = countriesData
-                      .where((test) => test["code"] == v)
-                      .first["name"]!;
-
-                  currentStates =
-                      cmaps[countriesData
-                              .where((test) => test["name"] == tecs[0].text)
-                              .first["code"] ??
-                          "NG"]!;
-                  setState(() {});
-                },
-              ),
-              CustomDropdown.city(
-                hint: "Select State",
-                selectedValue: tecs[1].text.isEmpty
-                    ? currentStates[0]
-                    : tecs[1].text,
-                label: "State",
-                cities: currentStates,
-                onChanged: (v) {
-                  tecs[1].text = v ?? "";
-                  setState(() {});
-                },
-              ),
-              SafeArea(
-                child: AppButton(
-                  onPressed: () {
-                    final b = formKey.currentState!.validate();
-                    if (b) {
-                      widget.tec.text = "${tecs[1].text}, ${tecs[0].text}";
-                      Get.back();
-                    }
-                  },
-                  text: "Save",
-                ),
-              ),
-              Ui.boxHeight(24),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class FullNameWidget extends StatefulWidget {
-  const FullNameWidget(this.afc, {super.key});
-  final TextEditingController afc;
-
-  @override
-  State<FullNameWidget> createState() => _FullNameWidgetState();
-}
-
-class _FullNameWidgetState extends State<FullNameWidget> {
-  List<TextEditingController> tecs = List.generate(
-    3,
-    (i) => TextEditingController(),
-  );
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-
-  @override
-  void initState() {
-    if (widget.afc.text.split(" ").length < 2) {
-      tecs[0].text = widget.afc.text;
-      tecs[1].text = "";
-    } else {
-      tecs[0].text = widget.afc.text.split(" ")[0];
-      tecs[1].text = widget.afc.text.split(" ").sublist(1).join(" ");
-    }
-    super.initState();
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return CurvedContainer(
-      radius: 0,
-      color: AppColors.containerColor,
-      padding: EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Form(
-          key: formKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              AppText.medium("Add Full Name", fontSize: 20),
-              Ui.boxHeight(24),
-              CustomTextField(
-                "John",
-                tecs[0],
-                label: "First Name",
-                customOnChanged: () {
-                  widget.afc.text = "${tecs[0].text} ${tecs[1].text}";
-                },
-              ),
-              CustomTextField(
-                "Doe",
-                tecs[1],
-                label: "Other Names",
-                customOnChanged: () {
-                  widget.afc.text = "${tecs[0].text} ${tecs[1].text}";
-                },
-              ),
-              SafeArea(
-                child: AppButton(
-                  onPressed: () {
-                    final b = formKey.currentState!.validate();
-                    if (b) {
-                      Get.back();
-                    }
-                  },
-                  text: "Save",
-                ),
-              ),
-              Ui.boxHeight(24),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
-}
-
-class CardAddressWidget extends StatelessWidget {
-  CardAddressWidget({super.key});
-  List<String> currentStates = [];
-  RxList<String> currentLGAs = <String>[].obs;
-  List<TextEditingController> tecs = List.generate(
-    7,
-    (i) => TextEditingController(),
-  );
-  final controller = Get.find<DashboardController>();
-  final cardKey = GlobalKey<FormState>();
-
-  @override
-  Widget build(BuildContext context) {
-    controller.initWalletTecs();
-    tecs[1].text = "Male";
-    currentStates =
-        cmaps[controller.allAvailableCountries
-                .where((test) => test["name"] == "Nigeria")
-                .first["code"] ??
-            "NG"]!;
-    currentLGAs.value = nigeriaLGAS
-        .where((test) => test["state"] == currentStates[0])
-        .first["lgas"];
-    return CurvedContainer(
-      radius: 0,
-      color: AppColors.containerColor,
-      padding: EdgeInsets.all(16),
-      child: SingleChildScrollView(
-        child: Form(
-          key: cardKey,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Row(
-                children: [
-                  AppText.medium("Add Card Details", fontSize: 20),
-                  Spacer(),
-                  CircleIcon(
-                    Icons.close_rounded,
-                    onTap: () {
-                      Get.back();
-                    },
-                  ),
-                ],
-              ),
-              Ui.boxHeight(24),
-              CustomTextField(
-                "John Doe",
-                controller.walletTecs[0],
-                label: "Card Holder Name",
-                readOnly: controller.walletTecs[0].text.isNotEmpty,
-              ),
-              CustomTextField(
-                "johndoe@gmail.com",
-                controller.walletTecs[1],
-                label: "Email",
-                varl: FPL.email,
-                readOnly: true,
-              ),
-              PhoneTextField(
-                "+234 704 847 848",
-                tecs[0],
-                "Phone Number",
-                ct: countriesData,
-              ),
-              CustomDropdown.city(
-                hint: "Gender",
-                selectedValue: tecs[1].text,
-                label: "Gender",
-                cities: ["Male", "Female"],
-                onChanged: (v) {
-                  tecs[1].text = v ?? "Male";
-                },
-              ),
-              Row(
-                children: [
-                  SizedBox(
-                    width: 100,
-                    child: CustomTextField(
-                      "23",
-                      tecs[2],
-                      varl: FPL.number,
-                      label: "Street No",
-                    ),
-                  ),
-                  Ui.boxWidth(16),
-                  Expanded(
-                    child: CustomTextField(
-                      "Test Street",
-                      tecs[3],
-                      label: "Street Name",
-                    ),
-                  ),
-                ],
-              ),
-              CustomTextField("Near ABC Mall", tecs[4], label: "Landmark"),
-              CustomDropdown.city(
-                hint: "Select State",
-                selectedValue: currentStates[0],
-                label: "State",
-                cities: currentStates,
-                onChanged: (v) {
-                  tecs[6].text = v ?? "";
-                  currentLGAs.value = nigeriaLGAS
-                      .where((test) => test["state"] == v)
-                      .first["lgas"];
-                },
-              ),
-              Obx(() {
-                return CustomDropdown.city(
-                  hint: "Select LGA",
-                  selectedValue: currentLGAs[0],
-                  label: "Local Government Area",
-                  cities: currentLGAs,
-                  onChanged: (v) {
-                    tecs[5].text = v ?? "";
-                  },
-                );
-              }),
-
-              // CustomTextField(
-              //   "Ikeja LGA",
-              //   tecs[5],
-              //   label: "LGA",
-              // ),
-              SafeArea(
-                child: AppButton(
-                  onPressed: () {
-                    if (cardKey.currentState!.validate()) {
-                      // controller.currentCardItem.value.address =
-                      //     "${tecs[2].text} ${tecs[3].text}, ${tecs[4].text}, ${tecs[5].text}, ${tecs[6].text}";
-                      controller.currentCardItem.value.userData = {
-                        "email": controller.walletTecs[1].text,
-                        "fullname": controller.walletTecs[0].text,
-                        "gender": tecs[1].text,
-                        "phone": tecs[0].text.removeAllWhitespace.replaceAll(
-                          "+",
-                          "",
-                        ),
-                        "houseNumber": tecs[2].text,
-                        "streetName": tecs[3].text,
-                        "landMark": tecs[4].text,
-                        "lga": tecs[5].text,
-                        "state": tecs[6].text,
-                      };
-                      Get.to(CreateCardPINScreen());
-                    }
-                  },
-                  text: "Continue",
-                ),
-              ),
-              Ui.boxHeight(24),
-            ],
-          ),
-        ),
-      ),
-    );
+      );
+    });
   }
 }
